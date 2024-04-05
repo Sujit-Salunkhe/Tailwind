@@ -7,6 +7,7 @@ function App() {
   const handleClick= () => {
     setCount(count + 1)
     console.log(count)
+    console.log(count)
   }
   return (
     <>
