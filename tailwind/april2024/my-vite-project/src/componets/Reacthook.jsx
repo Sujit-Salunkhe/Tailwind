@@ -2,9 +2,15 @@
 import { useForm } from "react-hook-form";
 
 const Reacthook = () => {
-  const { register, handleSubmit, formState:{errors} } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors,isLoading },
+  } = useForm();
+  const onSubmit = async(data) => {
+    await new Promise(resolve => setTimeout(resolve,1000));    
+        console.log(data);
+
   };
   return (
     <form
@@ -12,21 +18,22 @@ const Reacthook = () => {
       className="flex flex-col  border-black"
     >
       <input
-        {...register("name", { required: 'Name is Required'})}
+        {...register("name", { required: "Name is Required" })}
         type="text"
         placeholder="Name"
         className="p-3 border-black border-2 m-2"
       />
-      {errors.name && (
-        <div className="text-red-800">{errors.name.message}</div>
-      )
-        
-        
-      }
+      {errors.name && <div className="text-red-800">{errors.name.message}</div>}
       <input
         {...register("gmail", {
-          required: 'Email is Required',
+          required: "Email is Required",
           pattern: /^[a-zA-Z0-9._%+-]+@(?:gmail|email)\.\w+$/,
+          validate: (data) => {
+            if (!data.includes("a")) {
+              return "Email must be include @";
+            }
+            return true;
+          },
         })}
         type="gmail"
         placeholder="gmail"
@@ -37,22 +44,22 @@ const Reacthook = () => {
       )}
       <input
         {...register("password", {
-          required: 'Password is Requried',
-          validate:(value) => {
-                if(value.length < 8){
-                    return 'Password should be more than 7 characters'
-                }
-            }
+          required: "Password is Requried",
+          minLength:{
+            value:8,
+            message:'Password Must have at least 8 characters'
+          }
         })}
         type="password"
         placeholder="Password"
         className="p-3 border-2 border-black m-2"
       />
-       {errors.password && (
+      {errors.password && (
         <div className="text-red-800">{errors.password.message}</div>
       )}
-      <button type="submit" className="p-3 border-2 border-black w-20 m-2">
-        Submit
+      <button type="submit"   disabled={isLoading} className="p-3 border-2 border-black w-20 m-2">
+        {isLoading ? 'loading...' : 'Submit'}
+
       </button>
     </form>
   );
