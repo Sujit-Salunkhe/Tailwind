@@ -3,13 +3,13 @@ import { Container } from './StyledComponents'
 import {ThemeProvider} from 'styled-components'
 const StyledComponets2 = () => {
   const theme = {
-    color : {
-      body: 'green'
+    colors : {
+      body:'green'
     }
   }
   return (
     <>
-    <ThemeProvider>
+    <ThemeProvider theme = {theme}>
     <Header />
     <Container>
       <h1>Hello World</h1>
