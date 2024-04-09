@@ -1,11 +1,14 @@
 import "./App.css";
-import Reacthook from "./componets/Reacthook";
+// import Reacthook from "./componets/Reacthook";
+import StyledComponets2 from "./componets/StyledComponets2";
 
 function App() {
 
   return (
     <>
-    <Reacthook/>
+    {/* <Reacthook/> */}
+    <StyledComponets2/>
+    
     </>
   );
 }
